@@ -39,21 +39,23 @@ struct Data1
     }
 };
 
-template <int... Is>
-constexpr std::array<int, sizeof...(Is)>
-make_inc_array_impl(std::integer_sequence<int, Is...>) {
-    return {{(Is + 1)...}}; // +1 to start at one instead of [0, 1, ...]
+template<typename T, std::size_t... Is>
+constexpr std::array<T, sizeof...(Is)>
+make_inc_array_impl(std::index_sequence<Is...>)
+{
+	return {{(Is + 1.5)...}}; // Adding 1.5 just so the output shows doubles instead of suppressing the decimals because the values are whole numbers
 }
 
-template <std::size_t N>
-constexpr std::array<int, N> make_inc_array() {
-    return make_inc_array_impl(std::make_integer_sequence<int, N>{});
+template <typename T, std::size_t N>
+constexpr std::array<T, N> make_inc_array()
+{
+	return make_inc_array_impl<T>(std::make_index_sequence<N>{});
 }
 
 int main()
 {
 
-    constexpr auto a = make_inc_array<10>(); // [1, 2, ..., 10]
+    constexpr auto a = make_inc_array<double, 10>(); // [1, 2, ..., 10]
 
     constexpr Data1<int, 5> b{1, 2, 3, 4, 5};
     // constexpr auto x = std::make_integer_sequence<int, 5>{};
