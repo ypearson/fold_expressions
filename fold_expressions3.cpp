@@ -1,7 +1,9 @@
+#include <SI/length.h>
 #include <array>
 #include <iostream>
 
-// https://stackoverflow.com/questions/34569455/syntax-issue-when-populating-an-array-with-a-fold-expression
+using namespace SI::literals;
+using si_mm = SI::milli_metre_t<long double>;
 
 template <typename T, std::size_t... Is>
 constexpr std::array<T, sizeof...(Is)>
